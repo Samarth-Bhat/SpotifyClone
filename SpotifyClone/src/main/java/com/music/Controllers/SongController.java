@@ -2,7 +2,7 @@ package com.music.Controllers;
 
 import com.music.Repository.songRepo.SongRepository;
 import com.music.models.Song;
-import com.music.services.StorageService;
+import com.music.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
