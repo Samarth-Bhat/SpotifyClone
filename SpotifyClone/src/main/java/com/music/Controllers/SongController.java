@@ -92,34 +92,18 @@ public class SongController {
         }
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Song> updateSong(@PathVariable String id,@RequestBody Song songData)
-//    {
-//        Optional<Song> songOptional = songRepository.findById(id);
-//
-//        if(songOptional.isPresent())
-//        {
-//            Song song = songOptional.get();
-//
-//            if (songData.getTitle() != null)
-//            {
-//                song.setTitle(songData.getTitle());
-//            }
-//
-//            if (songData.getArtist() != null)
-//            {
-//                song.setArtist(songData.getArtist());
-//            }
-//            song.setFavorite(song.isFavorite());
-//            songRepository.save(song);
-//
-//            return ResponseEntity.ok(song);
-//        }
-//        else
-//        {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    @GetMapping("/audio/{fileName}")
+    public ResponseEntity<InputStreamResource> getAudioFile(@PathVariable String fileName) {
+        try {
+            InputStream audioStream = storageService.loadSongAsStream(fileName);
+            return ResponseEntity.ok()
+                    .header("Content-Type", "audio/mpeg")
+                    .body(new InputStreamResource(audioStream));
+        } catch (IOException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Song> deleteSong(@PathVariable String id)
